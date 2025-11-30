@@ -1,2 +1,3 @@
 # gonews
+
 Let's go!
