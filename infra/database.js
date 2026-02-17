@@ -4,7 +4,7 @@ function getSSL() {
   return process.env.NODE_ENV === "production" ? true : false;
 }
 
-async function query(queryObject) {
+async function getNewClient() {
   const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
@@ -14,8 +14,16 @@ async function query(queryObject) {
     ssl: getSSL(),
   });
 
+  await client.connect();
+
+  return client;
+}
+
+async function query(queryObject) {
+  let client;
+
   try {
-    await client.connect();
+    client = await getNewClient();
     const res = await client.query(queryObject);
     return res;
   } catch (error) {
@@ -26,5 +34,6 @@ async function query(queryObject) {
 }
 
 export default {
-  query: query,
+  query,
+  getNewClient,
 };
