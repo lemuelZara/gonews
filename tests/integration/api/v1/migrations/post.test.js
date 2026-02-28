@@ -1,10 +1,10 @@
 import database from "infra/database";
+import { waitForAllServices } from "tests/orchestrator";
 
-async function cleanDatabase() {
+beforeAll(async () => {
+  await waitForAllServices();
   await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
-}
-
-beforeAll(cleanDatabase);
+});
 
 test("POST to /api/v1/migrations returns 200 and the correct response body", async () => {
   const firstRequest = async () => {

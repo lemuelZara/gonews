@@ -1,12 +1,11 @@
 import { METHODS } from "node:http";
-
 import database from "infra/database";
+import { waitForAllServices } from "tests/orchestrator";
 
-async function cleanDatabase() {
+beforeAll(async () => {
+  await waitForAllServices();
   await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
-}
-
-beforeAll(cleanDatabase);
+});
 
 test("GET to /api/v1/migrations returns 200 and the correct response body", async () => {
   const res = await fetch("http://localhost:3000/api/v1/migrations");
