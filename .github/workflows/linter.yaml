@@ -3,7 +3,7 @@ name: Automated Linter
 on: pull_request
 
 jobs:
-  jest:
+  prettier:
     name: Prettier
     runs-on: ubuntu-latest
     steps:
@@ -15,4 +15,17 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run lint:check
+      - run: npm run lint:prettier:check
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.21.1
+
+      - run: npm ci
+
+      - run: npm run lint:eslint:check
