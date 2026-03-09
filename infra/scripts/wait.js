@@ -12,7 +12,7 @@ function check() {
       return;
     }
 
-    process.stdout.write("\n\n✅ Postgres ready!\n");
+    console.log("\n\n✅ Postgres ready!\n");
   }
 }
 

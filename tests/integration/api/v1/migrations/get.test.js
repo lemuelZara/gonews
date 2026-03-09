@@ -1,10 +1,11 @@
 import { METHODS } from "node:http";
+
 import database from "infra/database";
-import { waitForAllServices } from "tests/orchestrator";
+import orchestrator from "tests/orchestrator";
 
 beforeAll(async () => {
-  await waitForAllServices();
-  await database.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
+  await orchestrator.waitForAllServices();
+  await database.query("drop schema public cascade; create schema public;");
 });
 
 test("GET to /api/v1/migrations returns 200 and the correct response body", async () => {

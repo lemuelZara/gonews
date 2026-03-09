@@ -1,7 +1,7 @@
-import { waitForAllServices } from "tests/orchestrator";
+import orchestrator from "tests/orchestrator.js";
 
 beforeAll(async () => {
-  await waitForAllServices();
+  await orchestrator.waitForAllServices();
 });
 
 test("GET to /api/v1/status returns 200 and the correct response body", async () => {
